@@ -1,5 +1,6 @@
 
 using ProductModel;
+using RAD302Week3Lab12026CL.S00198790;
 
 namespace ProductWebAPI2025
 {
@@ -9,17 +10,16 @@ namespace ProductWebAPI2025
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             builder.Services.AddDbContext<ProductDBContext>();
             builder.Services.AddTransient<IProduct<Product>, ProductRepository>();
             builder.Services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+            builder.Services.AddDbContext<CustomerDbContext>();
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
